@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   park.associate = function (models) {
-    park.belongsToMany(models.user);
+    park.belongsTo(models.user);
     park.belongsToMany(models.user, {
       through: "likes",
       foreignKey: "parkId",

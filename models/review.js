@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      starts: {
+      stars: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   park.associate = function (models) {
     park.belongsTo(models.user);
+    park.hasMany(models.review);
     park.belongsToMany(models.user, {
       through: "likes",
       foreignKey: "parkId",

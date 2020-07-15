@@ -4,6 +4,7 @@ const router = new Router();
 const Park = require("../models").park;
 const Review = require("../models").review;
 const authMiddleware = require("../auth/middleware");
+const review = require("../models/review");
 
 router.post("/", authMiddleware, async (req, res) => {
   const userLogged = req.user.dataValues;
@@ -30,8 +31,15 @@ router.post("/", authMiddleware, async (req, res) => {
 });
 
 router.get("/", async (req, res, next) => {
+    const limit = req.query.limit || 10;
+    const offset = req.query.offset || 0;
   try {
-    const parks = await Park.findAll();
+    const parks = await Park.findAndCountAll({
+      limit,
+      offset,
+      include: [{model: Review}],
+      order: [[Review, "createdAt", "DESC"]]
+    });
     res.status(201).json(parks);
   } catch (e) {
     return res.status(400).send({ message: "Something went wrong, sorry" });

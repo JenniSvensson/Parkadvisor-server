@@ -23,6 +23,12 @@ module.exports = {
       type: {
         type: Sequelize.STRING,
       },
+      reports: {
+        type: Sequelize.INTEGER,
+      },
+      hidden: {
+        type: Sequelize.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

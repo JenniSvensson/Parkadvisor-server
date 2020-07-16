@@ -16,6 +16,7 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
           userId: 1,
+          reports: 0,
         },
         {
           title: "Hoge Veluwe National Park",
@@ -28,6 +29,7 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
           userId: 1,
+          reports: 0,
         },
       ],
       {}

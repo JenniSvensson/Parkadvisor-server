@@ -23,6 +23,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      reports: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      hidden: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      }
     },
     {}
   );

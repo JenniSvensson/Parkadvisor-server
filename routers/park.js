@@ -50,5 +50,24 @@ router.get("/:parkId/reviews", async (req, res, next) => {
     return res.status(400).send({ message: "Something went wrong, sorry" });
   }
 });
+//temp leave auth middleware out
+router.get("/:parkId/report", async (req, res, next) => {
+  const { parkId } = req.params;
+
+  try {
+    const reportPark = await Park.increment('reports', { where: { id: parkId } });
+
+    const reportedPark = await Park.findByPk(parkId)
+    if (reportedPark.reports >= 10) {
+      await reportedPark.update({ hidden: true });
+    }
+
+    res.status(201).json(reportPark);
+
+
+  } catch (e) {
+    return res.status(400).send({ message: "Something went wrong, sorry" });
+  }
+})
 
 module.exports = router;

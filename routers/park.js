@@ -31,13 +31,13 @@ router.post("/", authMiddleware, async (req, res) => {
 });
 
 router.get("/", async (req, res, next) => {
-    const limit = req.query.limit || 10;
-    const offset = req.query.offset || 0;
+  const limit = req.query.limit || 10;
+  const offset = req.query.offset || 0;
   try {
     const parks = await Park.findAndCountAll({
       limit,
       offset,
-      include: [{model: Review}],
+      include: [{ model: Review }],
       order: [[Review, "createdAt", "DESC"]]
     });
     res.status(201).json(parks);
@@ -59,7 +59,7 @@ router.get("/:parkId/reviews", async (req, res, next) => {
   }
 });
 
-router.get("/:parkId/report", authMiddleware, async (req, res, next) => {
+router.post("/:parkId/report", authMiddleware, async (req, res, next) => {
   const { parkId } = req.params;
 
   try {

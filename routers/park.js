@@ -50,8 +50,8 @@ router.get("/:parkId/reviews", async (req, res, next) => {
     return res.status(400).send({ message: "Something went wrong, sorry" });
   }
 });
-//temp leave auth middleware out
-router.get("/:parkId/report", async (req, res, next) => {
+
+router.get("/:parkId/report", authMiddleware, async (req, res, next) => {
   const { parkId } = req.params;
 
   try {

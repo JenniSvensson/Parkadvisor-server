@@ -5,13 +5,9 @@ const User = require("../models").user;
 const Likes = require("../models").like;
 const authMiddleware = require("../auth/middleware");
 
-router.get("/", authMiddleware, async (req, res, next) => {
-  const userLogged = req.user.dataValues;
-
+router.get("/", async (req, res, next) => {
   try {
-    const getLikes = await Likes.findAll({
-      where: { userId: userLogged.id },
-    });
+    const getLikes = await Likes.findAll();
 
     res.status(201).json(getLikes);
   } catch (e) {

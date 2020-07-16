@@ -7,7 +7,7 @@ const authMiddleware = require("../auth/middleware");
 
 router.post("/", authMiddleware, async (req, res) => {
   const userLogged = req.user.dataValues;
-  const { name, stars, description, parkId } = req.body;
+  const { name, stars, description, parkId, imageUrl } = req.body;
 
   if (!name || !stars || !description) {
     return res.status(400).send("Please fill out all the fields");
@@ -22,6 +22,7 @@ router.post("/", authMiddleware, async (req, res) => {
       description,
       userId: userLogged.id,
       parkId,
+      imageUrl,
     });
 
     const reviews = await Review.findAll({

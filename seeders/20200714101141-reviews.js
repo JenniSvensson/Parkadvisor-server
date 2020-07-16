@@ -14,6 +14,7 @@ module.exports = {
           updatedAt: new Date(),
           userId: 1,
           parkId: 1,
+          userName: "Jenni",
         },
         {
           name: "Flat park",
@@ -24,6 +25,7 @@ module.exports = {
           updatedAt: new Date(),
           userId: 1,
           parkId: 2,
+          userName: "Paula",
         },
       ],
       {}

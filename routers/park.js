@@ -22,6 +22,7 @@ router.post("/", authMiddleware, async (req, res) => {
       country,
       type,
       userId: userLogged.id,
+      reports: 0,
     });
 
     res.status(201).json(newPark);
@@ -31,14 +32,14 @@ router.post("/", authMiddleware, async (req, res) => {
 });
 
 router.get("/", async (req, res, next) => {
-    const limit = req.query.limit || 10;
-    const offset = req.query.offset || 0;
+  const limit = req.query.limit || 10;
+  const offset = req.query.offset || 0;
   try {
     const parks = await Park.findAndCountAll({
       limit,
       offset,
-      include: [{model: Review}],
-      order: [[Review, "createdAt", "DESC"]]
+      include: [{ model: Review }],
+      order: [[Review, "createdAt", "DESC"]],
     });
     res.status(201).json(parks);
   } catch (e) {
@@ -63,19 +64,19 @@ router.get("/:parkId/report", authMiddleware, async (req, res, next) => {
   const { parkId } = req.params;
 
   try {
-    const reportPark = await Park.increment('reports', { where: { id: parkId } });
+    const reportPark = await Park.increment("reports", {
+      where: { id: parkId },
+    });
 
-    const reportedPark = await Park.findByPk(parkId)
+    const reportedPark = await Park.findByPk(parkId);
     if (reportedPark.reports >= 10) {
       await reportedPark.update({ hidden: true });
     }
 
     res.status(201).json(reportPark);
-
-
   } catch (e) {
     return res.status(400).send({ message: "Something went wrong, sorry" });
   }
-})
+});
 
 module.exports = router;

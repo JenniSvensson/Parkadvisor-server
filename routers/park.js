@@ -59,7 +59,7 @@ router.get("/:parkId/reviews", async (req, res, next) => {
   }
 });
 
-router.post("/:parkId/report", authMiddleware, async (req, res, next) => {
+router.patch("/:parkId/report", async (req, res, next) => {
   const { parkId } = req.params;
 
   try {

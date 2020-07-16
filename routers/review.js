@@ -45,4 +45,18 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.patch("/", authMiddleware, async (req, res, next) => {
+  const { id } = req.body;
+  try {
+    const toUpdate = await Review.findByPk(id);
+    console.log(toUpdate);
+    if (!toUpdate) {
+      res.status(404).send("Review not found");
+    } else {
+      const updated = await toUpdate.update(req.body);
+      res.json(updated);
+    }
+  } catch (error) {}
+});
+
 module.exports = router;

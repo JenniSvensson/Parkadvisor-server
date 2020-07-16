@@ -39,7 +39,9 @@ router.get("/", async (req, res, next) => {
       limit,
       offset,
       include: [{ model: Review }],
-      order: [[Review, "createdAt", "DESC"]],
+
+      order: [[Review, "createdAt", "DESC"]]
+
     });
     res.status(201).json(parks);
   } catch (e) {
@@ -60,7 +62,7 @@ router.get("/:parkId/reviews", async (req, res, next) => {
   }
 });
 
-router.get("/:parkId/report", authMiddleware, async (req, res, next) => {
+router.patch("/:parkId/report", async (req, res, next) => {
   const { parkId } = req.params;
 
   try {

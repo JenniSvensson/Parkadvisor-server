@@ -23,12 +23,13 @@ router.post("/", authMiddleware, async (req, res) => {
       userId: userLogged.id,
       parkId,
       imageUrl,
+      userName: userLogged.name,
     });
 
     const reviews = await Review.findAll({
       include: [User],
     });
-    res.status(201).json(reviews);
+    res.status(201).json(newReview);
   } catch (error) {
     return res.status(400).send({ message: "Something went wrong, sorry" });
   }
@@ -56,7 +57,7 @@ router.patch("/", authMiddleware, async (req, res, next) => {
       const updated = await toUpdate.update(req.body);
       res.json(updated);
     }
-  } catch (error) {}
+  } catch (error) { }
 });
 
 module.exports = router;
